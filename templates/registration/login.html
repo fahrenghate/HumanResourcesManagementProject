@@ -1,0 +1,9 @@
+{% extends "hrm/base.html" %}
+{% block content %}
+<form method="post" style="max-width: 400px; margin: auto;">
+    {% csrf_token %}
+    <h2>Авторизация</h2>
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary w-100">Войти</button>
+</form>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "hrm/base.html" %}
+{% block content %}
+<h2>Список сотрудников</h2>
+{% if user.is_authenticated %}
+    <a href="{% url 'employee_add' %}" class="btn btn-success mb-3">Добавить сотрудника</a>
+{% endif %}
+
+<table class="table table-bordered table-hover bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>ФИО</th>
+            <th>Должность</th>
+            <th>Отдел</th>
+            <th>Телефон</th>
+            <th>Email</th>
+            <th>Зарплата</th>
+            {% if user.is_authenticated %}<th>Действия</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.fullname }}</td>
+            <td>{{ emp.position }}</td>
+            <td>{{ emp.department.name }}</td>
+            <td>{{ emp.phone }}</td>
+            <td>{{ emp.email }}</td>
+            <td>{{ emp.salary }} руб.</td>
+            {% if user.is_authenticated %}
+            <td>
+                <a href="{% url 'employee_edit' emp.id %}" class="btn btn-sm btn-primary">Изменить</a>
+                <a href="{% url 'employee_delete' emp.id %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
